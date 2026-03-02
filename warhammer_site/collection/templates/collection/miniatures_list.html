@@ -1,0 +1,25 @@
+{% extends 'collection/base.html' %}
+
+{% block content %}
+<h1>Miniatures Collection</h1>
+
+{% if miniatures %}
+    <ul>
+        {% for mini in miniatures %}
+            <li>
+                <strong>{{ mini.name }}</strong>
+                ({{ mini.faction }}) –
+                {{ mini.points }} pts
+                {% if mini.painted %}
+                    ✅ Painted
+                {% else %}
+                    ❌ Not painted
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No miniatures added yet.</p>
+{% endif %}
+
+{% endblock %}
