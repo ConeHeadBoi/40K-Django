@@ -3,6 +3,27 @@
 {% block content %}
 <h1>Miniatures Collection</h1>
 
+# Miniatures list
+<div class="mini-grid">
+    {% for mini in miniatures %}
+        <div class="card">
+            {% if mini.image %}
+                <img src="{{ mini.image.url }}" alt="{{ mini.name }}">
+            {% endif %}
+
+            <h2>{{ mini.name }}</h2>
+            <p><strong>Faction:</strong> {{ mini.faction }}</p>
+            <p><strong>Points:</strong> {{ mini.points }}</p>
+
+            <a href="{% url 'miniature-detail' mini.id %}">
+                View Details →
+            </a>
+        </div>
+    {% empty %}
+        <p>No miniatures found.</p>
+    {% endfor %}
+</div>
+
 # Filter form
 <form method="get">
     <input
@@ -28,15 +49,5 @@
 </form>
 
 <hr>
-
-# Miniatures list
-{% for mini in miniatures %}
-    <li>
-        <a href="/minis/{{ mini.id }}/">
-            <strong>{{ mini.name }}</strong>
-        </a>
-        ({{ mini.faction }}) – {{ mini.points }} pts
-    </li>
-{% endfor %}
 
 {% endblock %}
