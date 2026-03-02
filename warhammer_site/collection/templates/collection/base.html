@@ -1,7 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}Warhammer 40K Archive{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/styles.css' %}">
 </head>
 <body>
 
@@ -13,7 +16,9 @@
 
 <hr>
 
-{% block content %}{% endblock %}
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
 
 </body>
 </html>
