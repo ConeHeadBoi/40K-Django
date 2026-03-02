@@ -3,6 +3,33 @@
 {% block content %}
 <h1>Miniatures Collection</h1>
 
+# Filter form
+<form method="get">
+    <input
+        type="text"
+        name="q"
+        placeholder="Search by name"
+        value="{{ request.GET.q }}"
+    >
+
+    <select name="faction">
+        <option value="">All factions</option>
+        {% for faction in factions %}
+            <option
+                value="{{ faction }}"
+                {% if request.GET.faction == faction %}selected{% endif %}
+            >
+                {{ faction }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<hr>
+
+# Miniatures list
 {% for mini in miniatures %}
     <li>
         <a href="/minis/{{ mini.id }}/">
