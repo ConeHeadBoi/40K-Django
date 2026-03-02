@@ -16,5 +16,11 @@
 <p><strong>Description:</strong></p>
 <p>{{ miniature.description }}</p>
 
+{% if miniature.image %}
+    <img src="{{ miniature.image.url }}" alt="{{ miniature.name }}" width="300">
+{% endif %}
+
+<hr></hr>
+
 <a href="/minis/">← Back to Miniatures</a>
 {% endblock %}
