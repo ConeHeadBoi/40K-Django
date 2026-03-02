@@ -3,23 +3,13 @@
 {% block content %}
 <h1>Miniatures Collection</h1>
 
-{% if miniatures %}
-    <ul>
-        {% for mini in miniatures %}
-            <li>
-                <strong>{{ mini.name }}</strong>
-                ({{ mini.faction }}) –
-                {{ mini.points }} pts
-                {% if mini.painted %}
-                    ✅ Painted
-                {% else %}
-                    ❌ Not painted
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No miniatures added yet.</p>
-{% endif %}
+{% for mini in miniatures %}
+    <li>
+        <a href="/minis/{{ mini.id }}/">
+            <strong>{{ mini.name }}</strong>
+        </a>
+        ({{ mini.faction }}) – {{ mini.points }} pts
+    </li>
+{% endfor %}
 
 {% endblock %}

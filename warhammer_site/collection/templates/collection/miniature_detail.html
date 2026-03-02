@@ -1,0 +1,20 @@
+{% extends 'collection/base.html' %}
+
+{% block content %}
+<h1>{{ miniature.name }}</h1>
+
+<p><strong>Faction:</strong> {{ miniature.faction }}</p>
+<p><strong>Points:</strong> {{ miniature.points }}</p>
+<p><strong>Status:</strong>
+    {% if miniature.painted %}
+        Painted ✅
+    {% else %}
+        Not painted ❌
+    {% endif %}
+</p>
+
+<p><strong>Description:</strong></p>
+<p>{{ miniature.description }}</p>
+
+<a href="/minis/">← Back to Miniatures</a>
+{% endblock %}
