@@ -1,11 +1,17 @@
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.shortcuts import render
+from .forms import MiniatureForm
 from .models import Miniature
 
 # Create your views here.
 # View for the home page of the collection
 def home_view(request):
     return render(request, 'collection/home.html')
+
+# View for the about page of the collection
+def about_view(request):
+    return render(request, 'collection/about.html')
 
 # View for displaying the details of a specific miniature
 def miniatures_list_view(request):
@@ -39,6 +45,18 @@ def miniature_detail_view(request, id):
         {'miniature': miniature}
     )
 
-# View for the about page of the collection
-def about_view(request):
-    return render(request, 'collection/about.html')
+# View for creating a new miniature
+def miniature_create_view(request):
+    if request.method == 'POST':
+        form = MiniatureForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('miniatures-list')
+    else:
+        form = MiniatureForm()
+
+    return render(
+        request,
+        'collection/miniature_form.html',
+        {'form': form}
+    )

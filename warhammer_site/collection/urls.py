@@ -6,4 +6,5 @@ urlpatterns = [
     path('about/', views.about_view, name='about'),
     path('minis/', views.miniatures_list_view, name='miniatures-list'),
     path('minis/<int:id>/', views.miniature_detail_view, name='miniature-detail'),
+    path('minis/new/', views.miniature_create_view, name='miniature-create'),
 ]

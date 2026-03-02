@@ -1,0 +1,13 @@
+{% extends 'collection/base.html' %}
+
+{% block content %}
+<h1>Add New Miniature</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Miniature</button>
+</form>
+
+<a href="/minis/">← Back to Miniatures</a>
+{% endblock %}
