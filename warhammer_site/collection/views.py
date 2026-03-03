@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
+from django.contrib import messages
 from django.shortcuts import render
 from .forms import MiniatureForm
 from .models import Miniature
@@ -51,6 +52,7 @@ def miniature_create_view(request):
         form = MiniatureForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Miniature created successfully!")
             return redirect('miniatures-list')
     else:
         form = MiniatureForm()
@@ -69,6 +71,7 @@ def miniature_update_view(request, id):
         form = MiniatureForm(request.POST, request.FILES, instance=miniature)
         if form.is_valid():
             form.save()
+            messages.success(request, "Miniature updated successfully!")
             return redirect('miniatures-list')
     else:
         form = MiniatureForm(instance=miniature)
@@ -85,6 +88,7 @@ def miniature_delete_view(request, id):
 
     if request.method == 'POST':
         miniature.delete()
+        messages.success(request, "Miniature deleted successfully!")
         return redirect('miniatures-list')
 
     return render(

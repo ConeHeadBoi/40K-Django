@@ -3,50 +3,73 @@
 {% block content %}
 <h1>Miniatures Collection</h1>
 
-# Miniatures list
-<div class="mini-grid">
+<div class="row">
     {% for mini in miniatures %}
-        <div class="card">
-            {% if mini.image %}
-                <img src="{{ mini.image.url }}" alt="{{ mini.name }}">
-            {% endif %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm bg-dark text-light border-warning">
 
-            <h2>{{ mini.name }}</h2>
-            <p><strong>Faction:</strong> {{ mini.faction }}</p>
-            <p><strong>Points:</strong> {{ mini.points }}</p>
+                {% if mini.image %}
+                    <img src="{{ mini.image.url }}" class="card-img-top" alt="{{ mini.name }}">
+                {% endif %}
 
-            <a href="{% url 'miniature-detail' mini.id %}">
-                View Details →
-            </a>
+                <div class="card-body">
+                    <h5 class="card-title text-warning">{{ mini.name }}</h5>
+                    <p class="card-text">
+                        <strong>Faction:</strong> {{ mini.faction }}<br>
+                        <strong>Points:</strong> {{ mini.points }}
+                    </p>
+                </div>
+
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'miniature-detail' mini.id %}" class="btn btn-warning btn-sm">
+                        View Details
+                    </a>
+                </div>
+
+            </div>
         </div>
     {% empty %}
         <p>No miniatures found.</p>
     {% endfor %}
 </div>
 
-# Filter form
-<form method="get">
-    <input
-        type="text"
-        name="q"
-        placeholder="Search by name"
-        value="{{ request.GET.q }}"
-    >
+<div class="card bg-dark border-warning shadow mb-4">
+  <div class="card-body">
 
-    <select name="faction">
-        <option value="">All factions</option>
-        {% for faction in factions %}
-            <option
-                value="{{ faction }}"
-                {% if request.GET.faction == faction %}selected{% endif %}
-            >
-                {{ faction }}
+    <form method="get" class="row g-3 align-items-end">
+
+      <div class="col-md-5">
+        <label class="form-label text-warning">Search</label>
+        <input type="text"
+               name="q"
+               value="{{ request.GET.q }}"
+               class="form-control"
+               placeholder="Search by name">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label text-warning">Faction</label>
+        <select name="faction" class="form-select">
+          <option value="">All Factions</option>
+          {% for faction in factions %}
+            <option value="{{ faction }}"
+              {% if request.GET.faction == faction %}selected{% endif %}>
+              {{ faction }}
             </option>
-        {% endfor %}
-    </select>
+          {% endfor %}
+        </select>
+      </div>
 
-    <button type="submit">Filter</button>
-</form>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-warning w-100">
+          Filter
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
 
 <hr>
 
