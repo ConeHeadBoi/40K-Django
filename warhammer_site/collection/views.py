@@ -60,3 +60,35 @@ def miniature_create_view(request):
         'collection/miniature_form.html',
         {'form': form}
     )
+
+# View for updating an existing miniature
+def miniature_update_view(request, id):
+    miniature = get_object_or_404(Miniature, id=id)
+
+    if request.method == 'POST':
+        form = MiniatureForm(request.POST, request.FILES, instance=miniature)
+        if form.is_valid():
+            form.save()
+            return redirect('miniatures-list')
+    else:
+        form = MiniatureForm(instance=miniature)
+
+    return render(
+        request,
+        'collection/miniature_form.html',
+        {'form': form}
+    )
+
+# View for deleting a miniature
+def miniature_delete_view(request, id):
+    miniature = get_object_or_404(Miniature, id=id)
+
+    if request.method == 'POST':
+        miniature.delete()
+        return redirect('miniatures-list')
+
+    return render(
+        request,
+        'collection/miniature_confirm_delete.html',
+        {'miniature': miniature}
+    )

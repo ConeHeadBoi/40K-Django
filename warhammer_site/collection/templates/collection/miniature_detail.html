@@ -21,6 +21,11 @@
     <p><strong>Description:</strong></p>
     <p>{{ miniature.description }}</p>
 
+    <br>
+    <a href="{% url 'miniature-edit' miniature.id %}">✏ Edit</a>
+    <br><br>
+    <a href="{% url 'miniature-delete' miniature.id %}">🗑 Delete</a>
+    <br><br>
     <a href="/minis/">← Back to Miniatures</a>
 </div>
 {% endblock %}

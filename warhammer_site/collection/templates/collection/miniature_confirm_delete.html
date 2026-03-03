@@ -1,0 +1,16 @@
+{% extends 'collection/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Delete {{ miniature.name }}?</h2>
+    <p>This action cannot be undone.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+
+    <br>
+    <a href="{% url 'miniature-detail' miniature.id %}">Cancel</a>
+</div>
+{% endblock %}
