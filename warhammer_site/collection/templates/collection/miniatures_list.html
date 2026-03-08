@@ -15,8 +15,20 @@
                 <div class="card-body">
                     <h5 class="card-title text-warning">{{ mini.name }}</h5>
                     <p class="card-text">
-                        <strong>Faction:</strong> {{ mini.faction }}<br>
-                        <strong>Points:</strong> {{ mini.points }}
+                        <strong>Faction:</strong> {{ mini.faction.name }}<br>
+                        <strong>Points:</strong> {{ mini.points }}<br>
+                        <strong>Stage:</strong>
+                        {% if mini.painting_stage == 'unbuilt' %}
+                            <span class="badge bg-secondary">Unbuilt</span>
+                        {% elif mini.painting_stage == 'built' %}
+                            <span class="badge bg-info">Built</span>
+                        {% elif mini.painting_stage == 'primed' %}
+                            <span class="badge bg-warning text-dark">Primed</span>
+                        {% elif mini.painting_stage == 'painting' %}
+                            <span class="badge bg-primary">Painting</span>
+                        {% elif mini.painting_stage == 'finished' %}
+                            <span class="badge bg-success">Finished</span>
+                        {% endif %}
                     </p>
                 </div>
 
@@ -52,9 +64,9 @@
         <select name="faction" class="form-select">
           <option value="">All Factions</option>
           {% for faction in factions %}
-            <option value="{{ faction }}"
-              {% if request.GET.faction == faction %}selected{% endif %}>
-              {{ faction }}
+            <option value="{{ faction.id }}"
+              {% if request.GET.faction|default:'' == faction.id|stringformat:"s" %}selected{% endif %}>
+              {{ faction.name }}
             </option>
           {% endfor %}
         </select>

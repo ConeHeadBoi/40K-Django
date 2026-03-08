@@ -1,5 +1,5 @@
 from django import forms
-from .models import Miniature
+from .models import Miniature, Faction
 
 class MiniatureForm(forms.ModelForm):
     class Meta:
@@ -9,7 +9,7 @@ class MiniatureForm(forms.ModelForm):
             'faction',
             'points',
             'description',
-            'painted',
+            'painting_stage',
             'image',
         ]
         
@@ -20,7 +20,3 @@ class MiniatureForm(forms.ModelForm):
             field.widget.attrs.update({
                 'class': 'form-control'
             })
-
-        self.fields['painted'].widget.attrs.update({
-            'class': 'form-check-input'
-        })

@@ -3,4 +3,10 @@
 {% block content %}
 <h1>Warhammer 40K Miniature Archive</h1>
 <p>Track and display my Warhammer 40K miniatures.</p>
+<h5>Painting Progress</h5>
+<div class="progress">
+  <div class="progress-bar bg-success" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+    {{ finished }}/{{ total }} finished
+  </div>
+</div>
 {% endblock %}

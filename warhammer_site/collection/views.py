@@ -3,12 +3,21 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.shortcuts import render
 from .forms import MiniatureForm
-from .models import Miniature
+from .models import Miniature, Faction
 
 # Create your views here.
 # View for the home page of the collection
 def home_view(request):
-    return render(request, 'collection/home.html')
+    total = Miniature.objects.count()
+    finished = Miniature.objects.filter(painting_stage='finished').count()
+    progress = int((finished / total) * 100) if total > 0 else 0
+
+    context = {
+        'total': total,
+        'finished': finished,
+        'progress': progress,
+    }
+    return render(request, 'collection/home.html', context)
 
 # View for the about page of the collection
 def about_view(request):
@@ -18,15 +27,16 @@ def about_view(request):
 def miniatures_list_view(request):
     miniatures = Miniature.objects.all().order_by('-created_at')
     query = request.GET.get('q')
-    faction = request.GET.get('faction')
+    faction_id = request.GET.get('faction')
 
     if query:
         miniatures = miniatures.filter(name__icontains=query)
 
-    if faction:
-        miniatures = miniatures.filter(faction__iexact=faction)
+    if faction_id:
+        miniatures = miniatures.filter(faction_id=faction_id)
 
-    factions = Miniature.objects.values_list('faction', flat=True).distinct()
+    # get all factions for filter dropdown
+    factions = Faction.objects.all()
 
     return render(
         request,
